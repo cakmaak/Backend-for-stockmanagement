@@ -17,11 +17,10 @@ public class UserServiceimpl implements IUserService {
 	@Override
 	public User saveUser(User newuser) {
 		
-		User user=new User();
-		BeanUtils.copyProperties(newuser, user);
-		userRepository.save(user);
 		
-		return user;
+		userRepository.save(newuser);
+		
+		return newuser;
 	}
 
 	@Override
