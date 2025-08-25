@@ -5,7 +5,7 @@ import java.util.Optional;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+
 
 import com.Stokmanagement.Stokmanagementapi.Entity.User;
 import com.Stokmanagement.Stokmanagementapi.Repository.UserRepository;
@@ -17,7 +17,7 @@ public class UserServiceimpl implements IUserService {
 	@Autowired
 	UserRepository userRepository;
 
-	@Transactional
+	
 	@Override
 	public User saveUser(User newuser) {
 		
