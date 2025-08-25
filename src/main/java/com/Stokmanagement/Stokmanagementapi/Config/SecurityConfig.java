@@ -32,7 +32,7 @@ public class SecurityConfig {
             .csrf(csrf -> csrf.disable())
             .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
-                    .requestMatchers("/auth/**","/stokman/user/saveuser").permitAll()   // login/register serbest
+                    .requestMatchers("/auth/**","/stokman/user/saveuser","backend-for-stockmanagement-production.up.railway.app").permitAll()   // login/register serbest
                     .anyRequest().authenticated()              // diğer endpointler JWT ile korunacak
             )
             .authenticationProvider(daoAuthenticationProvider())
