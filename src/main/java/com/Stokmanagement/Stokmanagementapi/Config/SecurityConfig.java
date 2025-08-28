@@ -32,7 +32,7 @@ public class SecurityConfig {
             .csrf(csrf -> csrf.disable())
             .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
-                    .requestMatchers("/auth/**","/stokman/user/saveuser","backend-for-stockmanagement-production.up.railway.app","/stokman/product/getproduct/**","/stokman/product/getallproducts","/stokman/product/getproduct").permitAll()   
+                    .requestMatchers("/auth/**","/stokman/user/saveuser","backend-for-stockmanagement-production.up.railway.app","/stokman/product/getproduct/**","/stokman/product/getallproducts","/stokman/product/getproduct","/stokman/stok/getallstockhistory").permitAll()   
                     .anyRequest().authenticated()             
             )
             .authenticationProvider(daoAuthenticationProvider())
