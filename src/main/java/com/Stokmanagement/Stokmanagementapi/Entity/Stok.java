@@ -28,7 +28,7 @@ public class Stok {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(name = "eklenemiktar")
+	@Column(name = "hareket")
 	private int eklenenmiktar;
 	
 	@Column(name = "oluşturmatarihi")
