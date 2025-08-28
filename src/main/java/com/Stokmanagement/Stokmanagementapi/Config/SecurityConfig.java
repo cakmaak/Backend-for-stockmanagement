@@ -1,16 +1,20 @@
 package com.Stokmanagement.Stokmanagementapi.Config;
 
-import org.springframework.context.annotation.*;
-import org.springframework.security.authentication.*;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.*;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource; 
 
 import com.Stokmanagement.Stokmanagementapi.Security.JwtAuthFilter;
 
@@ -25,15 +29,39 @@ public class SecurityConfig {
         this.userDetailsService = userDetailsService;
     }
 
+    
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.addAllowedOrigin("http://localhost:5173"); // React local
+        configuration.addAllowedOrigin("https://senin-frontend-domain.com"); // deploy sonrası frontend domain
+        configuration.addAllowedHeader("*");
+        configuration.addAllowedMethod("*");
+        configuration.setAllowCredentials(true);
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
+    }
+
+    
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
         http
             .csrf(csrf -> csrf.disable())
+            .cors(cors -> {}) // CORS aktif
             .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
-                    .requestMatchers("/auth/**","/stokman/user/saveuser","backend-for-stockmanagement-production.up.railway.app","/stokman/product/getproduct/**","/stokman/product/getallproducts","/stokman/product/getproduct","/stokman/stok/getallstockhistory").permitAll()   
-                    .anyRequest().authenticated()             
+                    .requestMatchers(
+                        "/auth/**",
+                        "/stokman/user/saveuser",
+                        "/stokman/product/getproduct/**",
+                        "/stokman/product/getallproducts",
+                        "/stokman/product/getproduct",
+                        "/stokman/stok/getallstockhistory"
+                    ).permitAll()
+                    .anyRequest().authenticated()
             )
             .authenticationProvider(daoAuthenticationProvider())
             .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
