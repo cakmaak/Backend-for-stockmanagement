@@ -16,11 +16,11 @@ public class StokControllerimpl implements IStokController {
 	@Autowired
 	IStokService stokService;
 	
-	@PostMapping("/savestok/{id}/{id1}")
+	@PostMapping("/savestok")
 	@Override
-	public Stok saveStokHistory(@RequestBody Stok stokhistory,@PathVariable Long id,@PathVariable Long id1) {
+	public Stok saveStokHistory(@RequestBody Stok stokhistory,Long productid) {
 		
-		return stokService.saveStokHistory(stokhistory, id, id1);
+		return stokService.saveStokHistory(stokhistory,productid);
 	}
 
 }

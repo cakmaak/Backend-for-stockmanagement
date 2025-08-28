@@ -37,4 +37,11 @@ public class UserControllerimpl implements IUserController {
 		return userService.finduserById(id);
 	}
 
+	@Override
+	@GetMapping("/getuser")
+	public User getuser() {
+		
+		return userService.getuser();
+	}
+
 }
