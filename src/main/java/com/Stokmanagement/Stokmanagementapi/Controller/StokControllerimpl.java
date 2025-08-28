@@ -30,7 +30,9 @@ public class StokControllerimpl implements IStokController {
 	@Override
 	public List<Stok> getallstokhistory() {
 		
-		return stokService.getallstokhistory();
+		return stokService.getallstokhistory() ;
 	}
+	
+	
 
 }
