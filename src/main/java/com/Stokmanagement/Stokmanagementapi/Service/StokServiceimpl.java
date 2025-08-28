@@ -1,6 +1,7 @@
 package com.Stokmanagement.Stokmanagementapi.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -66,6 +67,15 @@ public class StokServiceimpl implements IStokService {
 
 	    return newStok;
 	}
+
+	@Override
+	public List<Stok> getallstokhistory() {
+		List<Stok> stokhistoryList=stokRepository.findAll();
+		
+		return stokhistoryList;
+	}
+
+	
 
 	
 
