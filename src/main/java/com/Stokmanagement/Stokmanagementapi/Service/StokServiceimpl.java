@@ -7,6 +7,7 @@ import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -75,12 +76,31 @@ public class StokServiceimpl implements IStokService {
 		return stokhistoryList;
 	}
 
-	
+	@Override
+    public ResponseEntity<?> deleteStok(Long id, Authentication authentication) {
+		  Optional<Stok> stokOpt = stokRepository.findById(id);
+	        if (stokOpt.isEmpty()) {
+	            return ResponseEntity.notFound().build();
+	        }
 
-	
+	        Stok stok = stokOpt.get();
 
+	        String loginEmail = authentication.getName();
+	        User loginUser = userService.getUserbyEmail(loginEmail);
 
-	
-	
+	        if (loginUser == null || !stok.getUser().getId().equals(loginUser.getId())) {
+	            return ResponseEntity.status(403).body("Bu hareketi silmeye yetkiniz yok");
+	        }
 
+	        stokRepository.delete(stok);
+	        return ResponseEntity.ok("Hareket silindi");
+	    }
 }
+
+	
+
+
+	
+	
+
+
