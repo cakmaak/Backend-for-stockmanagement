@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import org.springframework.boot.autoconfigure.web.WebProperties.Resources.Chain.Strategy;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.annotation.Generated;
 import jakarta.persistence.Column;
@@ -40,6 +41,7 @@ public class Stok {
 	
 	@ManyToOne
 	@JoinColumn(name = "user_id")
+	@JsonIgnoreProperties({"stoks", "password"})
 	private User user;
 	
 	
