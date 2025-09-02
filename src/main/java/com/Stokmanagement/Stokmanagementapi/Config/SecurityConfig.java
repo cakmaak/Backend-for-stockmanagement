@@ -33,8 +33,8 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.addAllowedOrigin("http://localhost:5173"); // React local
-        configuration.addAllowedOrigin("https://senin-frontend-domain.com"); // deploy sonrası frontend domain
+        configuration.addAllowedOrigin("https://frontend-for-stock-management-websi.vercel.app"); 
+        configuration.addAllowedOrigin("https://senin-frontend-domain.com"); 
         configuration.addAllowedHeader("*");
         configuration.addAllowedMethod("*");
         configuration.setAllowCredentials(true);
@@ -50,7 +50,7 @@ public class SecurityConfig {
 
         http
             .csrf(csrf -> csrf.disable())
-            .cors(cors -> {}) // CORS aktif
+            .cors(cors -> {}) 
             .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
                     .requestMatchers(
